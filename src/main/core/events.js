@@ -4,15 +4,15 @@
  * Licensed under MIT
  */
 
-import config from "./config";
-import rule from "./rule";
-import entryDefault from "./entry/default";
-import Lookuper from "./lookuper";
 import dom from "../lib/dom";
-import traverser from "../lib/traverser";
-import utils from "../lib/utils";
 import Draggable from "../lib/draggable";
 import sound from "../lib/sound";
+import traverser from "../lib/traverser";
+import utils from "../lib/utils";
+import config from "./config";
+import entryDefault from "./entry/default";
+import Lookuper from "./lookuper";
+import rule from "./rule";
 
 const POSITION_FIELDS = ["left", "top", "width", "height"];
 
@@ -141,7 +141,47 @@ const setDialogEvents = (dialog) => {
       elem.dataset.mdPronunciationSet = "true";
       elem.addEventListener("click", () => sound.pronounce(elem.dataset.mdPronunciation));
     });
-    e.target.querySelectorAll("[data-md-hovervisible]").forEach((elem) => {
+    e.target.querySelectorAll("div.word-content").forEach((elem) => {
+      elem.addEventListener("click", async (e) => {
+        const word = elem.querySelector("span.row-word").textContent.trim();
+        const description = elem.querySelector("span.row-desc").textContent.trim().replace(/■/g, '<br>■');
+        const body = `単語: <b>${word}</b><br>${description}`
+
+        const sentence = prompt(`${word}の例文を入力してください。`);
+        console.log("word", word)
+        console.log("sentence", sentence)
+        const response = await fetch("http://127.0.0.1:8765", {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              action: "addNote",
+              version: 6,
+              params: {
+                  note: {
+                      deckName: "学習中::web",
+                      modelName: "Basic_en",
+                      fields: {
+                        "Front": sentence,
+                        "Back": body,
+                      },
+                      tags: [
+                        "Mouse Dictionary"
+                      ]
+                  },
+              },
+          }),
+        })
+        if (response.ok) {
+          console.log("Successfully added a note to Anki");
+          console.log(`Body: ${response.text}`)
+        } else {
+          console.log(`Failed to add a note to Anki. Please make sure AnkiConnect is installed and Anki app is running. (${response.text})`);
+        }
+    }, {once: true})
+    });
+  e.target.querySelectorAll("[data-md-hovervisible]").forEach((elem) => {
       elem.style.visibility = "visible";
     });
   });

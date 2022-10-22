@@ -9,7 +9,9 @@
     "page": "options/options.html",
     "open_in_tab": true
   },
-  "permissions": ["storage", "unlimitedStorage", "activeTab", "scripting"],
+  "permissions": [
+    "storage", "unlimitedStorage", "activeTab", "scripting", "declarativeNetRequest", "declarativeNetRequestFeedback"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -32,6 +34,18 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
+  },
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules/rules_1.json"
+      }
+    ]
   },
   "web_accessible_resources": [
     {

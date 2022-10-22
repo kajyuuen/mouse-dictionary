@@ -75,27 +75,29 @@ export default {
 
   contentTemplate: `<div style="{{cssReset}};font-family:'hiragino kaku gothic pro', meiryo, sans-serif;">
   {{#words}}
-    {{^isShort}}
-      <span style="{{cssReset}};font-size:{{headFontSize}};color:{{headFontColor}};font-weight:bold;">
-        {{head}}
-      </span>
-      <span style="cursor:pointer;visibility:hidden;" data-md-pronunciation="{{head}}" data-md-hovervisible="true">🔊</span>
-      <br/>
-      <span style="{{cssReset}};font-size:{{descFontSize}};color:{{descFontColor}};">
-        {{{desc}}}
-      </span>
-    {{/isShort}}
-    {{#isShort}}
-      <span style="{{cssReset}};font-size:{{headFontSize}};color:{{headFontColor}};font-weight:bold;">
-        {{head}}
-      </span>
-      <span style="{{cssReset}};color:#505050;font-size:x-small;">
-        {{shortDesc}}
-      </span>
-    {{/isShort}}
-    {{^isLast}}
-      <br/><hr style="border:0;border-top:1px solid #E0E0E0;margin:0;height:1px;width:100%;" />
-    {{/isLast}}
+    <div class="word-content">
+      {{^isShort}}
+        <span class="row-word" style="{{cssReset}};font-size:{{headFontSize}};color:{{headFontColor}};font-weight:bold;">
+          {{head}}
+        </span>
+        <span style="cursor:pointer;visibility:hidden;" data-md-pronunciation="{{head}}" data-md-hovervisible="true">🔊</span>
+        <br/>
+        <span class="row-desc" tyle="{{cssReset}};font-size:{{descFontSize}};color:{{descFontColor}};">
+          {{{desc}}}
+        </span>
+      {{/isShort}}
+      {{#isShort}}
+        <span style="{{cssReset}};font-size:{{headFontSize}};color:{{headFontColor}};font-weight:bold;">
+          {{head}}
+        </span>
+        <span style="{{cssReset}};color:#505050;font-size:x-small;">
+          {{shortDesc}}
+        </span>
+      {{/isShort}}
+      {{^isLast}}
+        <br/><hr style="border:0;border-top:1px solid #E0E0E0;margin:0;height:1px;width:100%;" />
+      {{/isLast}}
+    </div>
   {{/words}}
 </div>`,
 };

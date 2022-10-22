@@ -5,6 +5,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const UniteJsonPlugin = require("./build_tools/webpack_plugins/UniteJsonPlugin");
 const GenerateDictionaryPlugin = require("./build_tools/webpack_plugins/GenerateDictionaryPlugin");
 const GenerateManifestPlugin = require("./build_tools/webpack_plugins/GenerateManifestPlugin");
+const WriteFilePlugin = require("write-file-webpack-plugin");
 const jaRule = require("deinja/src/data");
 
 const mode = process.env.NODE_ENV || "development";
@@ -73,6 +74,7 @@ module.exports = (env) => {
           { from: "static", to: "." },
           { from: __dirname + "/node_modules/milligram/dist/milligram.min.css", to: "options/" },
           { from: "static_pdf/options", to: "options/" },
+          { from: "rules/*.json", to: "." },
           ...(isProd ? [] : [{ from: "static_overwrite", to: "." }]),
         ],
       }),
