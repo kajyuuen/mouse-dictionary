@@ -74,7 +74,6 @@ module.exports = (env) => {
           { from: "static", to: "." },
           { from: __dirname + "/node_modules/milligram/dist/milligram.min.css", to: "options/" },
           { from: "static_pdf/options", to: "options/" },
-          { from: "rules/*.json", to: "." },
           ...(isProd ? [] : [{ from: "static_overwrite", to: "." }]),
         ],
       }),

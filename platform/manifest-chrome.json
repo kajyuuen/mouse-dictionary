@@ -38,15 +38,6 @@
   "host_permissions": [
     "*://*/*"
   ],
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "ruleset_1",
-        "enabled": true,
-        "path": "rules/rules_1.json"
-      }
-    ]
-  },
   "web_accessible_resources": [
     {
       "resources": ["data/rule.json", "data/dict*.json"],
